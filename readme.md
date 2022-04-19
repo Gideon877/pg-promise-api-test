@@ -1,4 +1,4 @@
-# psql refresher workshop
+# psql refresher workshop [![Build Status](https://app.travis-ci.com/Gideon877/pg-promise-api-test.svg?token=dGcfHWcsAm5uuxvU8DFd&branch=main)](https://app.travis-ci.com/Gideon877/pg-promise-api-test)
 
 Fix all the failing tests. An refresh your sql knowledge in the process.
 
