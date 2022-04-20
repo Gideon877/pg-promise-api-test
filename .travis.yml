@@ -8,6 +8,7 @@ before_script:
 - npm install
 - psql -c 'create database garment_app;' -U postgres
 - psql -U postgres -d garment_app -a -f ./sql/garment.sql
+- psql -U postgres -d garment_app -a -f ./sql/data.sql
 
 services: 
 - postgresql
