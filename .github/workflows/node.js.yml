@@ -49,8 +49,8 @@ jobs:
     - run: npm install -g npm
     - run: npm install
     - run: |
-        psql -h localhost -U postgres -d garment_app -a -f ./sql/garment.sql
-        psql -h localhost -U postgres -d garment_app -a -f ./sql/data.sql
+        PGPASSWORD=postgres psql -h localhost -U postgres -d garment_app -a -f ./sql/garment.sql
+        PGPASSWORD=postgres psql -h localhost -U postgres -d garment_app -a -f ./sql/data.sql
     - run: npm run build --if-present
     - run: npm test
     env: 
