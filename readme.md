@@ -1,4 +1,5 @@
-# psql refresher workshop [![Build Status](https://app.travis-ci.com/Gideon877/pg-promise-api-test.svg?token=dGcfHWcsAm5uuxvU8DFd&branch=main)](https://app.travis-ci.com/Gideon877/pg-promise-api-test)
+# psql refresher workshop [![Build Status](https://app.travis-ci.com/Gideon877/pg-promise-api-test.svg?token=dGcfHWcsAm5uuxvU8DFd&branch=main)](https://app.travis-ci.com/Gideon877/pg-promise-api-test) ![node workflow](https://github.com/gideon877/pg-promise-api-test/actions/workflows/node.js.yml/badge.svg)
+
 
 Fix all the failing tests. An refresh your sql knowledge in the process.
 
