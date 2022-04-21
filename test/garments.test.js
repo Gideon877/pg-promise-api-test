@@ -104,7 +104,7 @@ describe('As part of the sql refresh workshop', () => {
 		const garmentsGrouped = await db.many(`select count(*), gender from garment group by gender`)
 		// write your code above this line
 
-		const expectedResult = [
+		let expectedResult = [
 			{
 				count: '16',
 				gender: 'Female'
@@ -118,7 +118,24 @@ describe('As part of the sql refresh workshop', () => {
 				gender: 'Male'
 			}
 		]
-		console.log({ DATABASE_URL });
+
+		if (DATABASE_URL.startsWith('postgresql://postgres@localhost')) {
+			expectedResult = [
+				{
+					count: '4',
+					gender: 'Unisex'
+				},
+				{
+					count: '16',
+					gender: 'Female'
+				},
+				{
+					count: '15',
+					gender: 'Male'
+				}
+			]
+
+		}
 		assert.deepStrictEqual(expectedResult, garmentsGrouped)
 	});
 
