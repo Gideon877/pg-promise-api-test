@@ -106,12 +106,12 @@ describe('As part of the sql refresh workshop', () => {
 
 		const expectedResult = [
 			{
-				count: '4',
-				gender: 'Unisex'
-			},
-			{
 				count: '16',
 				gender: 'Female'
+			},
+			{
+				count: '4',
+				gender: 'Unisex'
 			},
 			{
 				count: '15',
