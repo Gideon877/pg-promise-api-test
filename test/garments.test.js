@@ -76,16 +76,21 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be able to add 2 Male & 3 Female garments', async () => {
 
 		// use db.none - change code below here...
-		const sql = `insert into garment (description, img, season, gender, price) values ($1, $2, $3, $4, $5);`
-		const data = [
-			{ description: 'Black Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '545.99' },
-			{ description: 'Blue Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '445.99' },
-			{ description: 'Red Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '345.99' },
-			{ description: 'Green Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '355.99' },
-			{ description: 'Pink Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '375.99' },
-		];
+		// const sql = `insert into garment (description, img, season, gender, price) values ($1, $2, $3, $4, $5);`
+		// const data = [
+		// 	{ description: 'Black Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '545.99' },
+		// 	{ description: 'Blue Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '445.99' },
+		// 	{ description: 'Red Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '345.99' },
+		// 	{ description: 'Green Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '355.99' },
+		// 	{ description: 'Pink Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '375.99' },
+		// ];
 
-		await Promise.all[data.forEach(async (item) => await db.none(sql, [item.description, item.img, item.season, item.gender, item.price]))]
+		// await Promise.all[data.forEach(async (item) => await db.none(sql, [item.description, item.img, item.season, item.gender, item.price]))]
+		await db.none(`insert into garment(description, img, season, gender, price) values ('Bunny t-shirt', 'collared-128x128-455119.png', 'Summer', 'Male', '88.24');`)
+		await db.none(`insert into garment(description, img, season, gender, price) values ('Christmas t-shirt', 'collared-128x128-455119.png', 'Summer', 'Male', '98.24');`)
+		await db.none(`insert into garment(description, img, season, gender, price) values ('Rainbow t-shirt', 'collared-128x128-455119.png', 'Summer', 'Female', '49.24');`)
+		await db.none(`insert into garment(description, img, season, gender, price) values ('Flower t-shirt', 'collared-128x128-455119.png', 'Summer', 'Female', '69.24');`)
+		await db.none(`insert into garment(description, img, season, gender, price) values ('Graphic t-shirt', 'collared-128x128-455119.png', 'Winter', 'Female', '80.24');`)
 
 		// write your code above this line
 
