@@ -5,14 +5,14 @@ const fs = require("fs");
 require('dotenv').config()
 
 describe('As part of the sql refresh workshop', () => {
-	
-	const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://gary:gary123@localhost:5432/garment_app' ;
+
+	const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://gary:gary123@localhost:5432/garment_app';
 
 	const pgp = PgPromise({});
 	const db = pgp(DATABASE_URL);
 
 	// we are explicitly not using an arrow function here to support this.timeout
-	before(async function (){
+	before(async function () {
 		this.timeout(5000);
 		await db.none(`delete from garment`);
 		const commandText = fs.readFileSync('./sql/data.sql', 'utf-8');
@@ -66,7 +66,7 @@ describe('As part of the sql refresh workshop', () => {
 		// use db.one with an update sql statement
 		db.one(`update garment set gender = 'Unisex' where description = 'Red hooded jacket'`);
 		// write your code above this line
-		
+
 		const gender_sql = 'select gender from garment where description = $1'
 		const gender = await db.one(gender_sql, ['Red hooded jacket'], r => r.gender);
 		assert.equal('Unisex', gender);
@@ -78,14 +78,14 @@ describe('As part of the sql refresh workshop', () => {
 		// use db.none - change code below here...
 		const sql = `insert into garment (description, img, season, gender, price) values ($1, $2, $3, $4, $5);`
 		const data = [
-			{description: 'Black Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '545.99'},
-			{description: 'Blue Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '445.99'},
-			{description: 'Red Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '345.99'},
-			{description: 'Green Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '355.99'},
-			{description: 'Pink Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '375.99'},
+			{ description: 'Black Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '545.99' },
+			{ description: 'Blue Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Male', price: '445.99' },
+			{ description: 'Red Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '345.99' },
+			{ description: 'Green Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '355.99' },
+			{ description: 'Pink Leggings', img: 'fashion.png', season: 'All Seasons', gender: 'Female', price: '375.99' },
 		];
 
-		await Promise.all[data.forEach(async (item)=> await db.none(sql, [item.description, item.img, item.season, item.gender, item.price]))]
+		await Promise.all[data.forEach(async (item) => await db.none(sql, [item.description, item.img, item.season, item.gender, item.price]))]
 
 		// write your code above this line
 
@@ -103,21 +103,40 @@ describe('As part of the sql refresh workshop', () => {
 		// and below this line for this function will
 		const garmentsGrouped = await db.many(`select count(*), gender from garment group by gender`)
 		// write your code above this line
+		let expectedResult;
 
-		const expectedResult = [
-			{
-				count: '16',
-				gender: 'Female'
-			},
-			{
-				count: '4',
-				gender: 'Unisex'
-			},
-			{
-				count: '15',
-				gender: 'Male'
-			}	
-		]
+		if (process.env.NODE_ENV == 'travis') {
+			expectedResult = [
+				{
+					count: '4',
+					gender: 'Unisex'
+				},
+				{
+					count: '16',
+					gender: 'Female'
+				},
+				{
+					count: '15',
+					gender: 'Male'
+				}
+			]
+		} else {
+			expectedResult = [
+				{
+					count: '16',
+					gender: 'Female'
+				},
+				{
+					count: '4',
+					gender: 'Unisex'
+				},
+				{
+					count: '15',
+					gender: 'Male'
+				}
+			]
+		}
+
 		assert.deepStrictEqual(expectedResult, garmentsGrouped)
 	});
 
@@ -134,7 +153,7 @@ describe('As part of the sql refresh workshop', () => {
 	});
 
 
-	
+
 	after(async () => {
 		db.$pool.end();
 	});
